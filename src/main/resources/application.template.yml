@@ -1,1 +1,23 @@
-spring.application.name=shopping-cart-microservice
+server:
+  port:${PORT}
+
+spring:
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+app-description: ${APP_DESCRIPTION}
+app-version: ${APP_VERSION}
+app-security-key: ${APP_SECURITY_KEY}
+
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: ${SWAGGER_PATH}
+    enabled: true

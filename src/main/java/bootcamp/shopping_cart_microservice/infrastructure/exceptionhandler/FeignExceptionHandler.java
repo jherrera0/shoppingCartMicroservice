@@ -1,6 +1,5 @@
 package bootcamp.shopping_cart_microservice.infrastructure.exceptionhandler;
 
-import bootcamp.shopping_cart_microservice.domain.until.ExceptionConst;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.apache.commons.io.IOUtils;

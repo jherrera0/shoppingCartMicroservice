@@ -1,18 +1,12 @@
 package bootcamp.shopping_cart_microservice.application.jpa.adapter;
 
 import bootcamp.shopping_cart_microservice.application.jpa.entity.CartEntity;
-import bootcamp.shopping_cart_microservice.application.jpa.entity.CartItemEntity;
 import bootcamp.shopping_cart_microservice.application.jpa.mapper.ICartEntityMapper;
-import bootcamp.shopping_cart_microservice.application.jpa.mapper.ICartItemEntityMapper;
 import bootcamp.shopping_cart_microservice.application.jpa.repository.ICartRepository;
 import bootcamp.shopping_cart_microservice.domain.model.Cart;
-import bootcamp.shopping_cart_microservice.domain.model.CartItem;
 import bootcamp.shopping_cart_microservice.domain.spi.ICartPersistencePort;
-import bootcamp.shopping_cart_microservice.domain.until.Const;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class CartJpaAdapter implements ICartPersistencePort {

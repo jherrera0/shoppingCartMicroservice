@@ -1,6 +1,5 @@
 package bootcamp.shopping_cart_microservice.infrastructure.configuration.security;
 
-import bootcamp.shopping_cart_microservice.domain.exception.MalFormJwtException;
 import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -34,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
            UserDetails user = myUserDetailsService.loadUserByUsername(jwt);
            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
            SecurityContextHolder.getContext().setAuthentication(authToken);
-       } catch (MalFormJwtException e) {
+       } catch (Exception e) {
            SecurityContextHolder.clearContext();
            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
            return;

@@ -1,7 +1,5 @@
 package bootcamp.shopping_cart_microservice.infrastructure.configuration.security;
 
-import bootcamp.shopping_cart_microservice.domain.exception.MalFormJwtException;
-import bootcamp.shopping_cart_microservice.domain.until.ExceptionConst;
 import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,13 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.IOException;
-import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 

@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +32,7 @@ public class ShoppingCartRestController {
     })
     @PostMapping(JwtConst.ADD_TO_CART_RUTE)
     @PreAuthorize(JwtConst.HAS_AUTHORITY_CUSTOMER)
-    public void addToCart(@RequestHeader(JwtConst.AUTHORIZATION) String token, @RequestBody AddArticleRequest request) {
+    public void addToCart(@RequestHeader(JwtConst.AUTHORIZATION) String token, @RequestBody @Valid AddArticleRequest request) {
         cartHandler.addItem(token, request);
     }
 

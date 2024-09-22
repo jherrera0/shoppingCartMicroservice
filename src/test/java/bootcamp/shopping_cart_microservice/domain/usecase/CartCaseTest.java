@@ -127,7 +127,7 @@ class CartCaseTest {
         when(feignStockPersistencePort.findCartItemById(productId)).thenReturn(itemOnStock);
         when(jwtPersistencePort.getUserId(anyString())).thenReturn(userId);
         when(cartPersistencePort.getCartByUserId(userId)).thenReturn(cart);
-        StockNotEnoughException exception = assertThrows(StockNotEnoughException.class, () -> {cartCase.addItem(productId, quantity); });
+        StockNotEnoughException exception = assertThrows(StockNotEnoughException.class, () -> cartCase.addItem(productId, quantity));
         assertTrue(exception.getMessage().contains(ExceptionConst.STOCK_NOT_ENOUGH));
     }
     @Test
@@ -197,9 +197,7 @@ class CartCaseTest {
         when(jwtPersistencePort.getUserId(anyString())).thenReturn(userId);
         when(cartPersistencePort.getCartByUserId(userId)).thenReturn(cart);
         when(cartItemPersistencePort.getCartItemsOnCart(cart.getId())).thenReturn(cartItems);
-        assertThrows(CategoriesLimitExceededException.class, () -> {
-            cartCase.addItem(productId, quantity);
-        });
+        assertThrows(CategoriesLimitExceededException.class, () -> cartCase.addItem(productId, quantity));
         verify(cartItemPersistencePort, never()).addCartItem(any(CartItem.class));
         verify(cartPersistencePort, never()).updateCart(cart);
     }

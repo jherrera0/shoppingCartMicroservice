@@ -1,12 +1,11 @@
 package bootcamp.shopping_cart_microservice.application.http.dto.request;
 
-import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class addArticleRequestTest {
+class AddArticleRequestTest {
     @DisplayName("Create addArticleRequest with valid productId and quantity")
     @Test
     void createAddArticleRequestWithValidProductIdAndQuantity() {

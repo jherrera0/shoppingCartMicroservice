@@ -7,7 +7,7 @@ public class ExceptionConst {
     public static final int CODE_400 = 400;
     public static final int CODE_500 = 500;
     public static final int CODE_404 = 404;
-    public static final String CATEGORY_LIMIT_EXCEEDED = "Category Limit Exceeded, more than 3 categories are not allowed in "; ;
+    public static final String CATEGORY_LIMIT_EXCEEDED = "Category Limit Exceeded, more than 3 categories are not allowed in ";
 
     private ExceptionConst() {
     }

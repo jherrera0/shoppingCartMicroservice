@@ -1,7 +1,6 @@
 package bootcamp.shopping_cart_microservice.application.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;

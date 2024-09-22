@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 class FeignSupplyJpaAdapterTest {
@@ -41,7 +42,7 @@ class FeignSupplyJpaAdapterTest {
 
         String result = feignSupplyJpaAdapter.getNextSupplyDate(productId);
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 
     @DisplayName("Get next supply date with non-existing product ID")
@@ -52,6 +53,6 @@ class FeignSupplyJpaAdapterTest {
 
         String result = feignSupplyJpaAdapter.getNextSupplyDate(productId);
 
-        assertEquals(null, result);
+        assertNull( result);
     }
 }

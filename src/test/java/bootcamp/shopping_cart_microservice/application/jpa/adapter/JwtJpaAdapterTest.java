@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 class JwtJpaAdapterTest {
@@ -43,7 +44,7 @@ class JwtJpaAdapterTest {
 
         Long result = jwtJpaAdapter.getUserId(jwt);
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 
     @DisplayName("Get user name with valid JWT")
@@ -65,7 +66,7 @@ class JwtJpaAdapterTest {
 
         String result = jwtJpaAdapter.getUserName(jwt);
 
-        assertEquals(null, result);
+        assertNull( result);
     }
 
     @DisplayName("Get user name with invalid JWT")
@@ -76,6 +77,6 @@ class JwtJpaAdapterTest {
 
         String result = jwtJpaAdapter.getUserName(jwt);
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 }

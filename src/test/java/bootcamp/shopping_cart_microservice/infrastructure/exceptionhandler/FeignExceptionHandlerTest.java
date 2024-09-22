@@ -93,7 +93,7 @@ class FeignExceptionHandlerTest {
 
         Exception exception = feignExceptionHandler.decode("GET", response);
 
-        assertTrue(exception instanceof ResponseStatusException);
+        assertInstanceOf(ResponseStatusException.class, exception);
         assertEquals(HttpStatus.BAD_REQUEST, ((ResponseStatusException) exception).getStatusCode());
         assertEquals(feignExceptionHandler.decode("GET",response).getMessage(), exception.getMessage());
     }
@@ -109,7 +109,7 @@ class FeignExceptionHandlerTest {
 
         Exception exception = feignExceptionHandler.decode("GET", response);
 
-        assertTrue(exception instanceof ResponseStatusException);
+        assertInstanceOf(ResponseStatusException.class, exception);
         assertEquals(HttpStatus.NOT_FOUND, ((ResponseStatusException) exception).getStatusCode());
         assertEquals(feignExceptionHandler.decode("GET",response).getMessage(), exception.getMessage());
     }
@@ -125,7 +125,7 @@ class FeignExceptionHandlerTest {
 
         Exception exception = feignExceptionHandler.decode("GET", response);
 
-        assertTrue(exception instanceof ResponseStatusException);
+        assertInstanceOf(ResponseStatusException.class, exception);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, ((ResponseStatusException) exception).getStatusCode());
         assertEquals(feignExceptionHandler.decode("GET",response).getMessage(), exception.getMessage());
     }

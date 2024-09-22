@@ -44,6 +44,6 @@ class FeignClientsConfigTest {
     void feignErrorDecoder_ReturnsFeignExceptionHandler() {
         ErrorDecoder errorDecoder = new FeignClientsConfig().feignErrorDecoder();
 
-        assertTrue(errorDecoder instanceof FeignExceptionHandler);
+        assertInstanceOf(FeignExceptionHandler.class, errorDecoder);
     }
 }

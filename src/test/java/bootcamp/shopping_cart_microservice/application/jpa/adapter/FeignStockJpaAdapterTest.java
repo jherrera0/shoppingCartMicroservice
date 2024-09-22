@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 class FeignStockJpaAdapterTest {
@@ -42,7 +43,7 @@ class FeignStockJpaAdapterTest {
 
         CartItem result = feignStockJpaAdapter.findCartItemById(id);
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 
     @DisplayName("Find cart item by ID with non-existing ID")
@@ -53,6 +54,6 @@ class FeignStockJpaAdapterTest {
 
         CartItem result = feignStockJpaAdapter.findCartItemById(id);
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 }

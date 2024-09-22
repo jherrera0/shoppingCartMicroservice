@@ -1,5 +1,7 @@
 package bootcamp.shopping_cart_microservice.infrastructure.exceptionhandler;
 
+import bootcamp.shopping_cart_microservice.domain.exception.ArticleNotFoundOnCart;
+import bootcamp.shopping_cart_microservice.domain.until.ExceptionConst;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
@@ -27,7 +29,15 @@ class GlobalExceptionHandlerTest {
     void setUp() {
         globalExceptionHandler = new GlobalExceptionHandler();
     }
+    @Test
+    void handleArticleNotFoundOnCartShouldReturnNotFoundStatus() {
+        ArticleNotFoundOnCart exception = new ArticleNotFoundOnCart(ExceptionConst.ARTICLE_NOT_FOUND_ON_CART);
 
+        ResponseEntity<Object> response = globalExceptionHandler.handleArticleNotFoundOnCart(exception);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(ExceptionConst.ARTICLE_NOT_FOUND_ON_CART, response.getBody());
+    }
     @Test
     void handleMethodArgumentNotValid() {
         BindingResult bindingResult = mock(BindingResult.class);

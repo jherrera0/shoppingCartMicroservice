@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -75,5 +76,37 @@ class CartItemJpaAdapterTest {
 
         assertEquals(cartItems, result);
     }
+    @DisplayName("Delete cart item with valid data")
+    @Test
+    void deleteCartItemWithValidData() {
+        Long cartId = 1L;
+        Long productId = 2L;
 
+        assertDoesNotThrow(() -> cartItemJpaAdapter.deleteCartItem(cartId, productId));
+        verify(cartItemJpaRepository).deleteCartItem(cartId, productId);
+    }
+
+    @DisplayName("Find cart item by product ID and cart ID returns true when item exists")
+    @Test
+    void findCartItemByProductIdAndCartIdReturnsTrueWhenItemExists() {
+        Long cartId = 1L;
+        Long productId = 2L;
+        when(cartItemJpaRepository.findItemEntityByProductIdAndCartId(cartId, productId)).thenReturn(Optional.of(new CartItemEntity()));
+
+        boolean result = cartItemJpaAdapter.findByProductIdAndCartId(cartId, productId);
+
+        assertTrue(result);
+    }
+
+    @DisplayName("Find cart item by product ID and cart ID returns false when item does not exist")
+    @Test
+    void findCartItemByProductIdAndCartIdReturnsFalseWhenItemDoesNotExist() {
+        Long cartId = 1L;
+        Long productId = 2L;
+        when(cartItemJpaRepository.findItemEntityByProductIdAndCartId(cartId, productId)).thenReturn(Optional.empty());
+
+        boolean result = cartItemJpaAdapter.findByProductIdAndCartId(cartId, productId);
+
+        assertFalse(result);
+    }
 }

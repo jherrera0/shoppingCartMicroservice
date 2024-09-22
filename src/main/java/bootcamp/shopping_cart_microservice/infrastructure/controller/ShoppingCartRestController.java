@@ -1,6 +1,7 @@
 package bootcamp.shopping_cart_microservice.infrastructure.controller;
 
 import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArticleRequest;
+import bootcamp.shopping_cart_microservice.application.http.dto.request.DeleteArticleRequest;
 import bootcamp.shopping_cart_microservice.application.http.handler.interfaces.ICartHandler;
 import bootcamp.shopping_cart_microservice.domain.until.Const;
 import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
@@ -35,11 +36,18 @@ public class ShoppingCartRestController {
     public void addToCart(@RequestHeader(JwtConst.AUTHORIZATION) String token, @RequestBody @Valid AddArticleRequest request) {
         cartHandler.addItem(token, request);
     }
-
+    @Operation(summary = Const.SHOPPING_CART_ADD_TO_CART)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = Const.CODE_STATUS_201, description = Const.DESCRIPTION_STATUS_201_DELETE_FROM_CART, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_401, description = Const.DESCRIPTION_STATUS_401_USER, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_403, description = Const.DESCRIPTION_STATUS_403_USER, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_404, description = Const.DESCRIPTION_STATUS_404_DELETE_FROM_CART, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_400, description = Const.DESCRIPTION_STATUS_400_USER, content = @Content)
+    })
     @DeleteMapping(JwtConst.DELETE_FROM_CART_RUTE)
     @PreAuthorize(JwtConst.HAS_AUTHORITY_CUSTOMER)
-    public ResponseEntity<String> removeFromCart() {
-        return ResponseEntity.ok("Remove from cart logic");
+    public void removeFromCart(@Valid @RequestBody DeleteArticleRequest request, @RequestHeader(JwtConst.AUTHORIZATION) String token) {
+        cartHandler.removeItem(token,request);
     }
 
     @PostMapping(JwtConst.BUY_CART_RUTE)

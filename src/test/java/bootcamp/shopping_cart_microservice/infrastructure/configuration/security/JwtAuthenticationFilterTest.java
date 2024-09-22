@@ -11,11 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.IOException;
+import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class JwtAuthenticationFilterTest {
@@ -39,7 +41,6 @@ class JwtAuthenticationFilterTest {
         MockitoAnnotations.openMocks(this);
         jwtAuthenticationFilter = new JwtAuthenticationFilter(myUserDetailsService);
     }
-
     @Test
     @DisplayName("Do not authenticate when Authorization header is missing")
     void doNotAuthenticateWhenAuthorizationHeaderIsMissing() throws ServletException, IOException {
@@ -52,14 +53,33 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    @DisplayName("Do not authenticate when Authorization header does not start with Bearer")
-    void doNotAuthenticateWhenAuthorizationHeaderDoesNotStartWithBearer() throws ServletException, IOException {
-        when(request.getHeader(JwtConst.AUTHORIZATION)).thenReturn("InvalidHeader");
+    @DisplayName("Authenticate when Authorization header is valid")
+    void authenticateWhenAuthorizationHeaderIsValid() throws ServletException, IOException {
+        String validToken = "Bearer validToken";
+        when(request.getHeader(JwtConst.AUTHORIZATION)).thenReturn(validToken);
+        UserDetails userDetails = mock(UserDetails.class);
+        when(myUserDetailsService.loadUserByUsername("validToken")).thenReturn(userDetails);
+        when(userDetails.getAuthorities()).thenReturn(Collections.emptyList());
 
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
+        verify(myUserDetailsService).loadUserByUsername("validToken");
+        assertNotNull(SecurityContextHolder.getContext().getAuthentication());
         verify(filterChain).doFilter(request, response);
-        assertNull(SecurityContextHolder.getContext().getAuthentication());
     }
 
+    @Test
+    @DisplayName("Clear context and send error when exception occurs during authentication")
+    void clearContextAndSendErrorWhenExceptionOccursDuringAuthentication() throws ServletException, IOException {
+        String invalidToken = "Bearer invalidToken";
+        when(request.getHeader(JwtConst.AUTHORIZATION)).thenReturn(invalidToken);
+        when(myUserDetailsService.loadUserByUsername("invalidToken")).thenThrow(new RuntimeException("Invalid token"));
+
+        jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+
+        verify(myUserDetailsService).loadUserByUsername("invalidToken");
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+        verify(response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+        verify(filterChain, never()).doFilter(request, response);
+    }
 }

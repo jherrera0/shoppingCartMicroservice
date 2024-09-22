@@ -1,6 +1,7 @@
 package bootcamp.shopping_cart_microservice.application.http.handler;
 
 import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArticleRequest;
+import bootcamp.shopping_cart_microservice.application.http.dto.request.DeleteArticleRequest;
 import bootcamp.shopping_cart_microservice.application.http.handler.interfaces.ICartHandler;
 import bootcamp.shopping_cart_microservice.domain.api.ICartServicePort;
 import bootcamp.shopping_cart_microservice.domain.until.TokenHolder;
@@ -17,6 +18,13 @@ public class CartHandler implements ICartHandler {
     public void addItem(String token , AddArticleRequest request) {
         TokenHolder.setToken(token);
         cartServicePort.addItem(request.getProductId(), request.getQuantity());
+        TokenHolder.clear();
+    }
+
+    @Override
+    public void removeItem(String token, DeleteArticleRequest request) {
+        TokenHolder.setToken(token);
+        cartServicePort.removeItem(request.getProductId());
         TokenHolder.clear();
     }
 

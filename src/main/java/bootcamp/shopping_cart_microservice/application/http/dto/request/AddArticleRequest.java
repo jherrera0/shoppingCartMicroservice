@@ -1,13 +1,10 @@
 package bootcamp.shopping_cart_microservice.application.http.dto.request;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class AddArticleRequest {
-    @NotNull
     @Positive
     private Long productId;
-    @NotNull
     @Positive
     private Long quantity;
 

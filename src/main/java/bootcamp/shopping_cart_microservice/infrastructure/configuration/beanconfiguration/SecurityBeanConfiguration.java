@@ -1,5 +1,7 @@
-package bootcamp.shopping_cart_microservice.infrastructure.configuration.security;
+package bootcamp.shopping_cart_microservice.infrastructure.configuration.beanconfiguration;
 
+import bootcamp.shopping_cart_microservice.infrastructure.configuration.security.JwtService;
+import bootcamp.shopping_cart_microservice.infrastructure.configuration.security.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,7 @@ public class SecurityBeanConfiguration {
     public MyUserDetailsService myUserDetailsService() {
         return new MyUserDetailsService(jwtService());
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

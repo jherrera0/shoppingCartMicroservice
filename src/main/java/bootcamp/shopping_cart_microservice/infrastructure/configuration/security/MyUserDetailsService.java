@@ -1,5 +1,6 @@
 package bootcamp.shopping_cart_microservice.infrastructure.configuration.security;
 
+import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +26,6 @@ public class MyUserDetailsService implements UserDetailsService {
                 new SimpleGrantedAuthority(role)
         );
 
-        return new User(username, "", authorities);
+        return new User(username, JwtConst.EMPTYSTRING, authorities);
     }
 }

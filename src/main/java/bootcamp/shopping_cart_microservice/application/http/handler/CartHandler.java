@@ -19,4 +19,14 @@ public class CartHandler implements ICartHandler {
         cartServicePort.addItem(request.getProductId(), request.getQuantity());
         TokenHolder.clear();
     }
+
+    @Override
+    public void removeItem() {
+
+    }
+
+    @Override
+    public void buyItems() {
+
+    }
 }

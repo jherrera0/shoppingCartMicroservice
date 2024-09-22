@@ -13,7 +13,7 @@ import java.security.Key;
 
 public class JwtService {
     @Value("${app-security-key}")
-    private String secretKey;
+    private String secretKey = "mySecretKeymysecretkeymySecretKeymysecretkey";
 
     public String extractUsername(String jwt) {
         try {

@@ -1,6 +1,7 @@
 package bootcamp.shopping_cart_microservice.application.jpa.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -25,9 +26,13 @@ public class CartItemEntity {
     public CartItemEntity() {
     }
 
-    public CartItemEntity(Long productId, Long quantity,CartEntity cart) {
+    public CartItemEntity(CartEntity cart, Long productId, Long quantity, String productName, String brandName, Double price, List<String> categories) {
+        this.cart = cart;
         this.productId = productId;
         this.quantity = quantity;
-        this.cart = cart;
+        this.productName = productName;
+        this.brandName = brandName;
+        this.price = price;
+        this.categories = categories;
     }
 }

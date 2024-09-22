@@ -1,6 +1,7 @@
 package bootcamp.shopping_cart_microservice.domain.usecase;
 
 import bootcamp.shopping_cart_microservice.domain.api.ICartServicePort;
+import bootcamp.shopping_cart_microservice.domain.exception.CategoriesLimitExceededException;
 import bootcamp.shopping_cart_microservice.domain.exception.StockNotEnoughException;
 import bootcamp.shopping_cart_microservice.domain.model.Cart;
 import bootcamp.shopping_cart_microservice.domain.model.CartItem;
@@ -101,7 +102,7 @@ public class CartCase implements ICartServicePort {
         for(String category : cartItem.getCategories()) {
                         if(categories.containsKey(category)) {
                             if(categories.get(category) + Const.ONE > Const.THREE) {
-                                throw new RuntimeException("You can't add more than 3 items of the same category");
+                                throw new CategoriesLimitExceededException(ExceptionConst.CATEGORY_LIMIT_EXCEEDED + category);
                             }
                         }
             }

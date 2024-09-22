@@ -33,8 +33,8 @@ public class FeignExceptionHandler implements ErrorDecoder {
                 return IOUtils.toString(response.body().asInputStream(), StandardCharsets.UTF_8);
             }
         } catch (IOException e) {
-            return getErrorMessage(response);
+            return e.getMessage();
         }
-        return Optional.ofNullable(response.reason()).orElse(getErrorMessage(response));
+        return Optional.ofNullable(response.reason()).orElse("Unknown error occurred");
     }
 }

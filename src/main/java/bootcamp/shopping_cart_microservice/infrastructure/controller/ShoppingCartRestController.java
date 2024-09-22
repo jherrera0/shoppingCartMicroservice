@@ -1,6 +1,6 @@
 package bootcamp.shopping_cart_microservice.infrastructure.controller;
 
-import bootcamp.shopping_cart_microservice.application.http.dto.request.addArticleRequest;
+import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArticleRequest;
 import bootcamp.shopping_cart_microservice.application.http.handler.interfaces.ICartHandler;
 import bootcamp.shopping_cart_microservice.domain.until.Const;
 import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
@@ -14,7 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(JwtConst.CART_REST_CONTROLLER_RUTE)
+@RestController
+@RequestMapping("/shopping-cart")
 @RequiredArgsConstructor
 @Tag(name = Const.SHOPPING_CART_REST_CONTROLLER,description = Const.SHOPPING_CART_REST_DESCRIPTION)
 public class ShoppingCartRestController {
@@ -30,7 +31,7 @@ public class ShoppingCartRestController {
     })
     @PostMapping(JwtConst.ADD_TO_CART_RUTE)
     @PreAuthorize(JwtConst.HAS_AUTHORITY_CUSTOMER)
-    public void addToCart(@RequestHeader(JwtConst.AUTHORIZATION) String token, @RequestBody addArticleRequest request) {
+    public void addToCart(@RequestHeader(JwtConst.AUTHORIZATION) String token, @RequestBody AddArticleRequest request) {
         cartHandler.addItem(token, request);
     }
 

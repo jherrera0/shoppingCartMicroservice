@@ -29,7 +29,7 @@ public class BeanConfiguration {
 
     @Bean
     public ICartServicePort cartServicePort() {
-        return new CartCase(cartPersistencePort(), jwtPersistencePort(), FeignStockPersistencePort(), FeignSupplyPersistencePort(),cartItemPersistencePort());
+        return new CartCase(cartPersistencePort(), jwtPersistencePort(), feignStockPersistencePort(), feignSupplyPersistencePort(),cartItemPersistencePort());
     }
 
     @Bean
@@ -43,12 +43,12 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public IFeignStockPersistencePort FeignStockPersistencePort() {
+    public IFeignStockPersistencePort feignStockPersistencePort() {
         return new FeignStockJpaAdapter(feignStockClient);
     }
 
     @Bean
-    public IFeignSupplyPersistencePort FeignSupplyPersistencePort() {
+    public IFeignSupplyPersistencePort feignSupplyPersistencePort() {
         return new FeignSupplyJpaAdapter(feignSupplyClient);
     }
 

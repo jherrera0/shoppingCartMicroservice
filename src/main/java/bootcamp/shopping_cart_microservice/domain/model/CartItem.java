@@ -12,7 +12,7 @@ public class CartItem {
     private List<String> categories;
     private Cart cart;
 
-    public CartItem(Long id, Long productId, Long quantity, String productName, String brandName, Double price, List<String> categories, Cart cart) {
+    public CartItem(Long id, Long productId, Long quantity, String productName, String brandName, Double price, List<String> categories) {
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
@@ -20,7 +20,6 @@ public class CartItem {
         this.brandName = brandName;
         this.price = price;
         this.categories = categories;
-        this.cart = cart;
     }
 
     public CartItem(CartItem cartItem) {

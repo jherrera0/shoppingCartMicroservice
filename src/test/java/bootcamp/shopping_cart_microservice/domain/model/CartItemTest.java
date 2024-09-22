@@ -21,7 +21,8 @@ class CartItemTest {
         List<String> categories = Arrays.asList("Category1", "Category2");
         Cart cart = new Cart();
 
-        CartItem cartItem = new CartItem(id, productId, quantity, productName, brandName, price, categories, cart);
+        CartItem cartItem = new CartItem(id, productId, quantity, productName, brandName, price, categories);
+        cartItem.setCart(cart);
 
         assertEquals(id, cartItem.getId());
         assertEquals(productId, cartItem.getProductId());
@@ -45,7 +46,8 @@ class CartItemTest {
         List<String> categories = Arrays.asList("Category1", "Category2");
         Cart cart = new Cart();
 
-        CartItem original = new CartItem(id, productId, quantity, productName, brandName, price, categories, cart);
+        CartItem original = new CartItem(id, productId, quantity, productName, brandName, price, categories);
+        original.setCart(cart);
         CartItem copy = new CartItem(original);
 
         assertEquals(original.getId(), copy.getId());

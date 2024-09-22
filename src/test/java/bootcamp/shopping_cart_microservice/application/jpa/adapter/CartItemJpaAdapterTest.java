@@ -35,7 +35,8 @@ class CartItemJpaAdapterTest {
     @DisplayName("Update cart item with valid data")
     @Test
     void updateCartItemWithValidData() {
-        CartItem cartItem = new CartItem(1L, 2L, 3L, "Product", "Brand", 10.0, Arrays.asList("Category1", "Category2"), new Cart());
+        CartItem cartItem = new CartItem(1L, 2L, 3L, "Product", "Brand", 10.0, Arrays.asList("Category1", "Category2"));
+        cartItem.setCart(new Cart());
         CartItemEntity cartItemEntity = new CartItemEntity();
         cartItemEntity.setCart(new CartEntity());
         cartItemEntity.getCart().setId(1L);
@@ -51,7 +52,8 @@ class CartItemJpaAdapterTest {
     @DisplayName("Add cart item with valid data")
     @Test
     void addCartItemWithValidData() {
-        CartItem cartItem = new CartItem(1L, 2L, 3L, "Product", "Brand", 10.0, Arrays.asList("Category1", "Category2"), new Cart());
+        CartItem cartItem = new CartItem(1L, 2L, 3L, "Product", "Brand", 10.0, Arrays.asList("Category1", "Category2"));
+        cartItem.setCart(new Cart());
         CartItemEntity cartItemEntity = new CartItemEntity();
         when(cartItemEntityMapper.toEntity(cartItem)).thenReturn(cartItemEntity);
 

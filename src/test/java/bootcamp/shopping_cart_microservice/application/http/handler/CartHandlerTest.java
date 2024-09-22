@@ -1,6 +1,6 @@
 package bootcamp.shopping_cart_microservice.application.http.handler;
 
-import bootcamp.shopping_cart_microservice.application.http.dto.request.addArticleRequest;
+import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArticleRequest;
 import bootcamp.shopping_cart_microservice.application.http.handler.interfaces.ICartHandler;
 import bootcamp.shopping_cart_microservice.domain.api.ICartServicePort;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +30,7 @@ class CartHandlerTest {
     @Test
     void addItemToCartWithValidTokenAndRequest() {
         String token = "validToken";
-        addArticleRequest request = new addArticleRequest(1L, 2L);
+        AddArticleRequest request = new AddArticleRequest(1L, 2L);
 
         cartHandler.addItem(token, request);
 
@@ -42,20 +42,9 @@ class CartHandlerTest {
     @Test
     void addItemToCartWithNullRequest() {
         String token = "validToken";
-        addArticleRequest request = null;
+        AddArticleRequest request = null;
 
         assertThrows(NullPointerException.class, () -> cartHandler.addItem(token, request));
     }
 
-    @DisplayName("Remove item from cart")
-    @Test
-    void removeItemFromCart() {
-        cartHandler.removeItem();
-    }
-
-    @DisplayName("Buy items in cart")
-    @Test
-    void buyItemsInCart() {
-        cartHandler.buyItems();
-    }
 }

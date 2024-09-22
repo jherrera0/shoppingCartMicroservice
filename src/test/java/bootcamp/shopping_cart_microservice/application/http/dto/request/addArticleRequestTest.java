@@ -11,7 +11,7 @@ class AddArticleRequestTest {
     void createAddArticleRequestWithValidProductIdAndQuantity() {
         Long productId = 1L;
         Long quantity = 2L;
-        addArticleRequest request = new addArticleRequest(productId, quantity);
+        AddArticleRequest request = new AddArticleRequest(productId, quantity);
 
         assertEquals(productId, request.getProductId());
         assertEquals(quantity, request.getQuantity());
@@ -20,7 +20,7 @@ class AddArticleRequestTest {
     @DisplayName("Set and get productId")
     @Test
     void setAndGetProductId() {
-        addArticleRequest request = new addArticleRequest();
+        AddArticleRequest request = new AddArticleRequest();
         Long productId = 1L;
         request.setProductId(productId);
         assertEquals(productId, request.getProductId());
@@ -29,7 +29,7 @@ class AddArticleRequestTest {
     @DisplayName("Set and get quantity")
     @Test
     void setAndGetQuantity() {
-        addArticleRequest request = new addArticleRequest();
+        AddArticleRequest request = new AddArticleRequest();
         Long quantity = 2L;
         request.setQuantity(quantity);
         assertEquals(quantity, request.getQuantity());

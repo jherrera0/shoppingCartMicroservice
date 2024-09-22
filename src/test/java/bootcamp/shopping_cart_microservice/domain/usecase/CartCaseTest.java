@@ -137,12 +137,12 @@ class CartCaseTest {
         Long userId = 123L;
         Cart cart = new Cart();
         cart.setId(1L);
-        CartItem existingItem = new CartItem(1L, 3L, 3L, "product", "brand", 1.1, List.of("Books"), cart);
-        CartItem existingItem2 = new CartItem(2L, 2L, 3L, "product2", "brand", 1.1, List.of("Books"), cart);
-        CartItem existingItem3 = new CartItem(3L, 1L, 3L, "product3", "brand", 1.1, List.of("Books"), cart);
-        existingItem.setCategories(new ArrayList<>(List.of("Books")));
-        existingItem2.setCategories(new ArrayList<>(List.of("Books")));
-        existingItem3.setCategories(new ArrayList<>(List.of("Books")));
+        CartItem existingItem = new CartItem(1L, 3L, 3L, "product", "brand", 1.1, List.of("Books"));
+        existingItem.setCart(cart);
+        CartItem existingItem2 = new CartItem(2L, 2L, 3L, "product2", "brand", 1.1, List.of("Books"));
+        existingItem2.setCart(cart);
+        CartItem existingItem3 = new CartItem(3L, 1L, 3L, "product3", "brand", 1.1, List.of("Books"));
+        existingItem3.setCart(cart);
         List<CartItem> cartItems = new ArrayList<>();
         cartItems.add(existingItem);
         cartItems.add(existingItem2);
@@ -176,9 +176,12 @@ class CartCaseTest {
         Long userId = 123L;
         Cart cart = new Cart();
         cart.setId(1L);
-        CartItem existingItem1 = new CartItem(1L, 3L, 3L, "product1", "brand", 1.1, List.of("Books"), cart);
-        CartItem existingItem2 = new CartItem(2L, 2L, 3L, "product2", "brand", 1.1, List.of("Books"), cart);
-        CartItem existingItem3 = new CartItem(3L, 1L, 3L, "product3", "brand", 1.1, List.of("Books"), cart);
+        CartItem existingItem1 = new CartItem(1L, 3L, 3L, "product1", "brand", 1.1, List.of("Books"));
+        existingItem1.setCart(cart);
+        CartItem existingItem2 = new CartItem(2L, 2L, 3L, "product2", "brand", 1.1, List.of("Books"));
+        existingItem2.setCart(cart);
+        CartItem existingItem3 = new CartItem(3L, 1L, 3L, "product3", "brand", 1.1, List.of("Books"));
+        existingItem3.setCart(cart);
 
         List<CartItem> cartItems = new ArrayList<>();
         cartItems.add(existingItem1);

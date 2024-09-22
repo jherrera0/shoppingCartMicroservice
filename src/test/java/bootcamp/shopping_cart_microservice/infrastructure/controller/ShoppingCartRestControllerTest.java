@@ -1,6 +1,6 @@
 package bootcamp.shopping_cart_microservice.infrastructure.controller;
 
-import bootcamp.shopping_cart_microservice.application.http.dto.request.addArticleRequest;
+import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArticleRequest;
 import bootcamp.shopping_cart_microservice.application.http.handler.interfaces.ICartHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class ShoppingCartRestControllerTest {
     @Test
     void addToCart_WithValidTokenAndRequest_CallsAddItem() {
         String token = "validToken";
-        addArticleRequest request = new addArticleRequest();
+        AddArticleRequest request = new AddArticleRequest();
         controller.addToCart(token, request);
 
         verify(cartHandler).addItem(token, request);

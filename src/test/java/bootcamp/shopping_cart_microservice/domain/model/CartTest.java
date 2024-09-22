@@ -28,32 +28,7 @@ class CartTest {
         assertEquals(createdAt, cart.getCreatedAt());
         assertEquals(updatedAt, cart.getUpdatedAt());
     }
-
     @DisplayName("Get cart ID successfully")
-    @Test
-    void getCartIdSuccessfully() {
-        Cart cart = new Cart();
-        cart.setId(1L);
-        assertEquals(1L, cart.getId());
-    }
-
-    @DisplayName("Set cart ID successfully")
-    @Test
-    void setCartIdSuccessfully() {
-        Cart cart = new Cart();
-        cart.setId(1L);
-        assertEquals(1L, cart.getId());
-    }
-
-    @DisplayName("Get user ID successfully")
-    @Test
-    void getUserIdSuccessfully() {
-        Cart cart = new Cart();
-        cart.setUserId(1L);
-        assertEquals(1L, cart.getUserId());
-    }
-
-    @DisplayName("Set user ID successfully")
     @Test
     void setUserIdSuccessfully() {
         Cart cart = new Cart();
@@ -61,19 +36,17 @@ class CartTest {
         assertEquals(1L, cart.getUserId());
     }
 
+    @DisplayName("Get cart ID successfully")
+    @Test
+    void setCartIdSuccessfully() {
+        Cart cart = new Cart();
+        cart.setId(1L);
+        assertEquals(1L, cart.getId());
+    }
+
     @DisplayName("Get items successfully")
     @Test
     void getItemsSuccessfully() {
-        CartItem item = new CartItem();
-        List<CartItem> items = Collections.singletonList(item);
-        Cart cart = new Cart();
-        cart.setItems(items);
-        assertEquals(items, cart.getItems());
-    }
-
-    @DisplayName("Set items successfully")
-    @Test
-    void setItemsSuccessfully() {
         CartItem item = new CartItem();
         List<CartItem> items = Collections.singletonList(item);
         Cart cart = new Cart();
@@ -90,15 +63,6 @@ class CartTest {
         assertEquals(date, cart.getCreatedAt());
     }
 
-    @DisplayName("Set created at date successfully")
-    @Test
-    void setCreatedAtDateSuccessfully() {
-        LocalDate date = LocalDate.now();
-        Cart cart = new Cart();
-        cart.setCreatedAt(date);
-        assertEquals(date, cart.getCreatedAt());
-    }
-
     @DisplayName("Get updated at date successfully")
     @Test
     void getUpdatedAtDateSuccessfully() {
@@ -107,14 +71,4 @@ class CartTest {
         cart.setUpdatedAt(dateTime);
         assertEquals(dateTime, cart.getUpdatedAt());
     }
-
-    @DisplayName("Set updated at date successfully")
-    @Test
-    void setUpdatedAtDateSuccessfully() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        Cart cart = new Cart();
-        cart.setUpdatedAt(dateTime);
-        assertEquals(dateTime, cart.getUpdatedAt());
-    }
-
 }

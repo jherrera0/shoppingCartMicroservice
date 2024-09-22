@@ -86,8 +86,8 @@ public class CartCase implements ICartServicePort {
 
     private void checkStock(CartItem itemOnStock,Long quantity) {
         if(itemOnStock.getQuantity()<quantity) {
-            String NextSupplyDate = getNextSupplyDate(itemOnStock.getProductId());
-            throw new StockNotEnoughException(ExceptionConst.STOCK_NOT_ENOUGH + Const.NEXT_SUPPLY_DATE + NextSupplyDate);
+            String nextSupplyDate = getNextSupplyDate(itemOnStock.getProductId());
+            throw new StockNotEnoughException(ExceptionConst.STOCK_NOT_ENOUGH + Const.NEXT_SUPPLY_DATE + nextSupplyDate);
         }
     }
 
@@ -100,12 +100,10 @@ public class CartCase implements ICartServicePort {
 
     private static void validateTheCategoriesLimitWithTheNewCartItem(CartItem cartItem, Map<String, Long> categories) {
         for(String category : cartItem.getCategories()) {
-                        if(categories.containsKey(category)) {
-                            if(categories.get(category) + Const.ONE > Const.THREE) {
-                                throw new CategoriesLimitExceededException(ExceptionConst.CATEGORY_LIMIT_EXCEEDED + category);
-                            }
-                        }
+            if(categories.containsKey(category) &&categories.get(category) + Const.ONE > Const.THREE) {
+                throw new CategoriesLimitExceededException(ExceptionConst.CATEGORY_LIMIT_EXCEEDED + category);
             }
+        }
     }
 
     private static void validateTheCategoriesLimitInsideOfCart(List<CartItem> categoriesInCart, Map<String, Long> categories) {

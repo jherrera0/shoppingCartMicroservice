@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class FeignStockJpaAdapter implements IFeignStockPersistencePort {
-    private final IFeignStockClient FeignStockClient;
+    private final IFeignStockClient feignStockClient;
 
     @Override
     public CartItem findCartItemById(Long id) {
-        return FeignStockClient.getArticle(id);
+        return feignStockClient.getArticle(id);
     }
 }

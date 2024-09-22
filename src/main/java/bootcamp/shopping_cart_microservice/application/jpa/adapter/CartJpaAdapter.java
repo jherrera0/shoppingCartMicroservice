@@ -22,13 +22,8 @@ public class CartJpaAdapter implements ICartPersistencePort {
 
     @Override
     public Cart getCartByUserId(Long userId) {
-        if (cartRepository.findByUserId(userId).isPresent()) {
-            CartEntity cartEntity = cartRepository.findByUserId(userId).get();
-            return cartEntityMapper.toDomain(cartEntity);
-        }
-        else {
-            return null;
-        }
+        CartEntity cartEntity = cartRepository.findByUserId(userId).orElse(null);
+        return cartEntityMapper.toDomain(cartEntity);
     }
 
     @Override

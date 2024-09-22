@@ -2,7 +2,6 @@ package bootcamp.shopping_cart_microservice.infrastructure.exceptionhandler;
 
 import feign.Request;
 import feign.Response;
-import feign.codec.ErrorDecoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,12 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class FeignExceptionHandlerTest {
 
     private FeignExceptionHandler feignExceptionHandler;
-    private ErrorDecoder.Default defaultErrorDecoder;
 
     @BeforeEach
     void setUp() {
         feignExceptionHandler = new FeignExceptionHandler();
-        defaultErrorDecoder = new ErrorDecoder.Default();
     }
 
     @Test
@@ -31,7 +28,8 @@ class FeignExceptionHandlerTest {
         Response response = Response.builder()
                 .status(404)
                 .reason("Not Found")
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         String errorMessage = feignExceptionHandler.getErrorMessage(response);
@@ -46,7 +44,8 @@ class FeignExceptionHandlerTest {
                 .status(500)
                 .reason("Internal Server Error")
                 .body("Detailed error message", StandardCharsets.UTF_8)
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         String errorMessage = feignExceptionHandler.getErrorMessage(response);
@@ -61,7 +60,8 @@ class FeignExceptionHandlerTest {
                 .status(500)
                 .reason("Internal Server Error")
                 .body((Response.Body) null)
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         String errorMessage = feignExceptionHandler.getErrorMessage(response);
@@ -75,7 +75,8 @@ class FeignExceptionHandlerTest {
         Response response = Response.builder()
                 .status(400)
                 .reason(null)
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         String errorMessage = feignExceptionHandler.getErrorMessage(response);
@@ -88,7 +89,8 @@ class FeignExceptionHandlerTest {
         Response response = Response.builder()
                 .status(400)
                 .reason("Bad Request")
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         Exception exception = feignExceptionHandler.decode("GET", response);
@@ -104,7 +106,8 @@ class FeignExceptionHandlerTest {
         Response response = Response.builder()
                 .status(404)
                 .reason("Not Found")
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         Exception exception = feignExceptionHandler.decode("GET", response);
@@ -120,7 +123,8 @@ class FeignExceptionHandlerTest {
         Response response = Response.builder()
                 .status(500)
                 .reason("Internal Server Error")
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         Exception exception = feignExceptionHandler.decode("GET", response);
@@ -136,7 +140,8 @@ class FeignExceptionHandlerTest {
         Response response = Response.builder()
                 .status(418)
                 .reason("I'm a teapot")
-                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8))
+                .request(Request.create(Request.HttpMethod.GET, "", Collections.emptyMap(), null, StandardCharsets.UTF_8, null
+                ))
                 .build();
 
         Exception exception = feignExceptionHandler.decode("GET", response);

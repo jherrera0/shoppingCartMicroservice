@@ -4,7 +4,6 @@ public class Const {
     public static final String NEXT_SUPPLY_DATE = "nextSupplyDate";
     public static final int THREE = 3;
     public static final Long ONE = 1L;
-    public static final int ZERO = 0;
     public static final int MINUS_ONE = -1;
     public static final String SHOPPING_CART_REST_CONTROLLER = "Api rest shopping cart";
     public static final String SHOPPING_CART_REST_DESCRIPTION = "Api rest to manage a shopping cart";

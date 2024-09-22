@@ -66,8 +66,8 @@ class CartItemJpaAdapterTest {
     @Test
     void getCartItemsOnCartWithValidCartId() {
         Long cartId = 1L;
-        List<CartItemEntity> cartItemEntities = Arrays.asList(new CartItemEntity());
-        List<CartItem> cartItems = Arrays.asList(new CartItem());
+        List<CartItemEntity> cartItemEntities = Arrays.asList(new CartItemEntity(), new CartItemEntity());
+        List<CartItem> cartItems = Arrays.asList(new CartItem(), new CartItem());
         when(cartItemJpaRepository.findCartItemEntityByCartId(cartId)).thenReturn(cartItemEntities);
         when(cartItemEntityMapper.toDomainList(cartItemEntities)).thenReturn(cartItems);
 

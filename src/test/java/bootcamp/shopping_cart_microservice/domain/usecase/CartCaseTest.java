@@ -1,5 +1,6 @@
 package bootcamp.shopping_cart_microservice.domain.usecase;
 
+import bootcamp.shopping_cart_microservice.domain.exception.ArticleNotFoundOnCart;
 import bootcamp.shopping_cart_microservice.domain.exception.CategoriesLimitExceededException;
 import bootcamp.shopping_cart_microservice.domain.exception.StockNotEnoughException;
 import bootcamp.shopping_cart_microservice.domain.model.Cart;
@@ -222,6 +223,38 @@ class CartCaseTest {
 
         assertDoesNotThrow(() -> cartCase.addItem(productId, quantity));
         verify(cartPersistencePort).createCart(any(Long.class));
+    }
+    @DisplayName("Remove item from cart successfully")
+    @Test
+    void removeItemFromCartSuccessfully() {
+        Long productId = 1L;
+        Long userId = 123L;
+        Cart cart = new Cart();
+        cart.setId(1L);
+
+        when(jwtPersistencePort.getUserId(anyString())).thenReturn(userId);
+        when(cartPersistencePort.getCartByUserId(userId)).thenReturn(cart);
+        when(cartItemPersistencePort.findByProductIdAndCartId(cart.getId(), productId)).thenReturn(true);
+
+        assertDoesNotThrow(() -> cartCase.removeItem(productId));
+        verify(cartItemPersistencePort).deleteCartItem(cart.getId(), productId);
+        verify(cartPersistencePort).updateCart(cart);
+    }
+
+    @DisplayName("Throw exception when removing item not in cart")
+    @Test
+    void throwExceptionWhenRemovingItemNotInCart() {
+        Long productId = 1L;
+        Long userId = 123L;
+        Cart cart = new Cart();
+        cart.setId(1L);
+
+        when(jwtPersistencePort.getUserId(anyString())).thenReturn(userId);
+        when(cartPersistencePort.getCartByUserId(userId)).thenReturn(cart);
+        when(cartItemPersistencePort.findByProductIdAndCartId(cart.getId(), productId)).thenReturn(false);
+
+        ArticleNotFoundOnCart exception = assertThrows(ArticleNotFoundOnCart.class, () -> cartCase.removeItem(productId));
+        assertTrue(exception.getMessage().contains(ExceptionConst.ARTICLE_NOT_FOUND_ON_CART));
     }
 
 }

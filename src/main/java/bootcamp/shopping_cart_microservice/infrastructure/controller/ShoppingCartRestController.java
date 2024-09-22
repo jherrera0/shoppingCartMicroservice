@@ -37,7 +37,6 @@ public class ShoppingCartRestController {
     public void addToCart(@RequestHeader(JwtConst.AUTHORIZATION) String token, @RequestBody @Valid AddArticleRequest request) {
         cartHandler.addItem(token, request);
     }
-
     @Operation(summary = Const.SHOPPING_CART_ADD_TO_CART)
     @ApiResponses(value = {
             @ApiResponse(responseCode = Const.CODE_STATUS_201, description = Const.DESCRIPTION_STATUS_201_DELETE_FROM_CART, content = @Content),

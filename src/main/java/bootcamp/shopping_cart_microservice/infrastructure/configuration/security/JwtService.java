@@ -27,11 +27,7 @@ public class JwtService {
     }
 
     public Claims extractAllClaims(String jwt) {
-        try {
-            return Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(jwt).getBody();
-        } catch (MalformedJwtException e) {
-            throw new MalFormJwtException(ExceptionConst.MALFORM_JWT_EXCEPTION);
-        }
+        return Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(jwt).getBody();
     }
 
     Key generateKey() {

@@ -1,5 +1,6 @@
 package bootcamp.shopping_cart_microservice.infrastructure.configuration.security;
 
+import bootcamp.shopping_cart_microservice.domain.exception.MalFormJwtException;
 import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -85,4 +86,13 @@ class JwtServiceTest {
         assertEquals("ROLE_USER", claims.get(JwtConst.ROLE));
         assertEquals("12345", claims.get(JwtConst.USER_ID));
     }
+    
+    @Test
+    void extractUsername_InvalidJwt_ThrowsMalFormJwtException() {
+        String jwt = "invalidJwt";
+
+        assertThrows(MalFormJwtException.class, () -> jwtService.extractUsername(jwt));
+
+    }
+
 }

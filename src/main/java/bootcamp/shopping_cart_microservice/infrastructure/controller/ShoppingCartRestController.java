@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,10 +38,18 @@ public class ShoppingCartRestController {
         cartHandler.addItem(token, request);
     }
 
+    @Operation(summary = Const.SHOPPING_CART_ADD_TO_CART)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = Const.CODE_STATUS_201, description = Const.DESCRIPTION_STATUS_201_DELETE_FROM_CART, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_401, description = Const.DESCRIPTION_STATUS_401_USER, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_403, description = Const.DESCRIPTION_STATUS_403_USER, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_404, description = Const.DESCRIPTION_STATUS_404_DELETE_FROM_CART, content = @Content),
+            @ApiResponse(responseCode = Const.CODE_STATUS_400, description = Const.DESCRIPTION_STATUS_400_USER, content = @Content)
+    })
     @DeleteMapping(JwtConst.DELETE_FROM_CART_RUTE)
     @PreAuthorize(JwtConst.HAS_AUTHORITY_CUSTOMER)
-    public void removeFromCart(@RequestHeader(JwtConst.AUTHORIZATION) String token,@RequestBody @Valid DeleteArticleRequest request) {
-        cartHandler.removeItem(token,request.getProductId());
+    public void removeFromCart(@Valid @RequestBody DeleteArticleRequest request, @RequestHeader(JwtConst.AUTHORIZATION) String token) {
+        cartHandler.removeItem(token,request);
     }
 
     @PostMapping(JwtConst.BUY_CART_RUTE)

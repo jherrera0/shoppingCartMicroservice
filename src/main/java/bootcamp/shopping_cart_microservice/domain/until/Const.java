@@ -18,7 +18,8 @@ public class Const {
     public static final String DESCRIPTION_STATUS_403_USER = "The request was forbidden";
     public static final String DESCRIPTION_STATUS_400_USER = "The request was bad";
     public static final String DESCRIPTION_STATUS_404_USER = "The request was not found";
-
+    public static final String DESCRIPTION_STATUS_201_DELETE_FROM_CART = "The article was delete successful";
+    public static final String DESCRIPTION_STATUS_404_DELETE_FROM_CART = "The article was not found";
 
 
     private Const() {

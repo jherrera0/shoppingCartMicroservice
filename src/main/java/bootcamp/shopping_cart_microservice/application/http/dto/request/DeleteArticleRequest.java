@@ -1,20 +1,17 @@
 package bootcamp.shopping_cart_microservice.application.http.dto.request;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeleteArticleRequest {
-    @NotNull
+
     @Positive
     private Long productId;
 
-    public DeleteArticleRequest(Long productId) {
-        this.productId = productId;
-    }
-
-    public DeleteArticleRequest() {
-    }
 
 }

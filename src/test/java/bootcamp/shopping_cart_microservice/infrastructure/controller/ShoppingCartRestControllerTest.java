@@ -33,18 +33,5 @@ class ShoppingCartRestControllerTest {
         verify(cartHandler).addItem(token, request);
     }
 
-    @Test
-    void removeFromCart_ReturnsExpectedMessage() {
-        String expectedMessage = "Remove from cart logic";
-        String actualMessage = controller.removeFromCart().getBody();
-        assertEquals(expectedMessage, actualMessage);
-    }
-
-    @Test
-    void buyCart_ReturnsExpectedMessage() {
-        String expectedMessage = "Buy cart logic";
-        String actualMessage = controller.buyCart().getBody();
-        assertEquals(expectedMessage, actualMessage);
-    }
 
 }

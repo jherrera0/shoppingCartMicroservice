@@ -20,4 +20,11 @@ public class CartHandler implements ICartHandler {
         TokenHolder.clear();
     }
 
+    @Override
+    public void removeItem(String Token,Long productId) {
+        TokenHolder.setToken(Token);
+        cartServicePort.removeItem(productId);
+        TokenHolder.clear();
+    }
+
 }

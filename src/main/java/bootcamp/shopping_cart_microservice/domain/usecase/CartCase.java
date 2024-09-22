@@ -1,6 +1,7 @@
 package bootcamp.shopping_cart_microservice.domain.usecase;
 
 import bootcamp.shopping_cart_microservice.domain.api.ICartServicePort;
+import bootcamp.shopping_cart_microservice.domain.exception.ArticleNotFoundOnCart;
 import bootcamp.shopping_cart_microservice.domain.exception.CategoriesLimitExceededException;
 import bootcamp.shopping_cart_microservice.domain.exception.StockNotEnoughException;
 import bootcamp.shopping_cart_microservice.domain.model.Cart;
@@ -64,6 +65,21 @@ public class CartCase implements ICartServicePort {
            cart.setUpdatedAt(LocalDateTime.now());
            cartPersistencePort.updateCart(cart);
         }
+    }
+
+    @Override
+    public void removeItem(Long productId) {
+        String token = TokenHolder.getToken().substring(JwtConst.SUB_STRING_INDEX);
+        Long userId = jwtPersistencePort.getUserId(token);
+        Cart cart = cartPersistencePort.getCartByUserId(userId);
+        if(cartItemPersistencePort.findByProductIdAndCartId(cart.getId(), productId)) {
+            cartItemPersistencePort.deleteCartItem(cart.getId(), productId);
+        }
+        else {
+            throw new ArticleNotFoundOnCart(ExceptionConst.ARTICLE_NOT_FOUND_ON_CART);
+        }
+        cart.setUpdatedAt(LocalDateTime.now());
+        cartPersistencePort.updateCart(cart);
     }
 
     private String getNextSupplyDate(Long productId) {

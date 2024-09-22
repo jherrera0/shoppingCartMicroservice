@@ -33,4 +33,17 @@ public class CartItemJpaAdapter implements ICartItemPersistencePort{
     public List<CartItem> getCartItemsOnCart(Long cartId) {
         return cartItemEntityMapper.toDomainList(cartItemJpaRepository.findCartItemEntityByCartId(cartId));
     }
+
+    @Override
+    public void deleteCartItem(Long cartId, Long productId) {
+        cartItemJpaRepository.deleteCartItem(cartId, productId);
+    }
+
+    @Override
+    public boolean findByProductIdAndCartId(Long cartId, Long productId) {
+        if (cartItemJpaRepository.findItemEntityByProductIdAndCartId(cartId, productId).isPresent()) {
+            return true;
+        }
+        return false;
+    }
 }

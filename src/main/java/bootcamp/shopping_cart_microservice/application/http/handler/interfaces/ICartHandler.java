@@ -4,4 +4,6 @@ import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArtic
 
 public interface ICartHandler {
     void addItem(String token, AddArticleRequest request);
+
+    void removeItem(String token,Long productId);
 }

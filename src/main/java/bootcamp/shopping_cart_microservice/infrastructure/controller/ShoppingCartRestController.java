@@ -1,6 +1,7 @@
 package bootcamp.shopping_cart_microservice.infrastructure.controller;
 
 import bootcamp.shopping_cart_microservice.application.http.dto.request.AddArticleRequest;
+import bootcamp.shopping_cart_microservice.application.http.dto.request.DeleteArticleRequest;
 import bootcamp.shopping_cart_microservice.application.http.handler.interfaces.ICartHandler;
 import bootcamp.shopping_cart_microservice.domain.until.Const;
 import bootcamp.shopping_cart_microservice.domain.until.JwtConst;
@@ -38,8 +39,8 @@ public class ShoppingCartRestController {
 
     @DeleteMapping(JwtConst.DELETE_FROM_CART_RUTE)
     @PreAuthorize(JwtConst.HAS_AUTHORITY_CUSTOMER)
-    public ResponseEntity<String> removeFromCart() {
-        return ResponseEntity.ok("Remove from cart logic");
+    public void removeFromCart(@RequestHeader(JwtConst.AUTHORIZATION) String token,@RequestBody @Valid DeleteArticleRequest request) {
+        cartHandler.removeItem(token,request.getProductId());
     }
 
     @PostMapping(JwtConst.BUY_CART_RUTE)

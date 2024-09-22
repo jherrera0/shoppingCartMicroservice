@@ -22,8 +22,8 @@ public class CartHandler implements ICartHandler {
     }
 
     @Override
-    public void removeItem(String Token, DeleteArticleRequest request) {
-        TokenHolder.setToken(Token);
+    public void removeItem(String token, DeleteArticleRequest request) {
+        TokenHolder.setToken(token);
         cartServicePort.removeItem(request.getProductId());
         TokenHolder.clear();
     }

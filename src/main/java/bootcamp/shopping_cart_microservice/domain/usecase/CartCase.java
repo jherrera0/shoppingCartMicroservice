@@ -52,8 +52,10 @@ public class CartCase implements ICartServicePort {
             checkStock(itemOnStock,cartItem.getQuantity());
             cartItemPersistencePort.updateCartItem(cartItem);
         }
-        checkQuantityPerCategory(cart.getItems(), cartItem);
-        cartItemPersistencePort.addCartItem(cartItem);
+        else {
+            checkQuantityPerCategory(cart.getItems(), cartItem);
+            cartItemPersistencePort.addCartItem(cartItem);
+        }
         cart.setUpdatedAt(LocalDateTime.now());
         cartPersistencePort.updateCart(cart);
     }

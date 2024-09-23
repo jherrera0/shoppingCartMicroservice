@@ -72,12 +72,10 @@ public class CartCase implements ICartServicePort {
         String token = TokenHolder.getToken().substring(JwtConst.SUB_STRING_INDEX);
         Long userId = jwtPersistencePort.getUserId(token);
         Cart cart = cartPersistencePort.getCartByUserId(userId);
-        if(cartItemPersistencePort.findByProductIdAndCartId(cart.getId(), productId)) {
-            cartItemPersistencePort.deleteCartItem(cart.getId(), productId);
-        }
-        else {
+        if(!cartItemPersistencePort.findByProductIdAndCartId(cart.getId(), productId)) {
             throw new ArticleNotFoundOnCart(ExceptionConst.ARTICLE_NOT_FOUND_ON_CART);
         }
+        cartItemPersistencePort.deleteCartItem(cart.getId(), productId);
         cart.setUpdatedAt(LocalDateTime.now());
         cartPersistencePort.updateCart(cart);
     }

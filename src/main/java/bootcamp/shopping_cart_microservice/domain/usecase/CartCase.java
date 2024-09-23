@@ -44,26 +44,17 @@ public class CartCase implements ICartServicePort {
         cartItem.setQuantity(quantity);
         cartItem.setCart(cart);
         checkStock(itemOnStock,cartItem.getQuantity());
-        if(cart.getItems().isEmpty()) {
-            cartItemPersistencePort.addCartItem(cartItem);
-            cart.setUpdatedAt(LocalDateTime.now());
-            cartPersistencePort.updateCart(cart);
-        } else if(findInCart(cart, cartItem) != Const.MINUS_ONE) {
+        if(!cart.getItems().isEmpty() && findInCart(cart, cartItem) != Const.MINUS_ONE) {
             int index = findInCart(cart, cartItem);
             cartItem = cart.getItems().get(index);
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
             checkStock(itemOnStock,cartItem.getQuantity());
             cartItemPersistencePort.updateCartItem(cartItem);
-            cart.setUpdatedAt(LocalDateTime.now());
-            cartPersistencePort.updateCart(cart);
         }
-        else{
-           List<CartItem> itemsOnCart =  cart.getItems();
-           checkQuantityPerCategory(itemsOnCart, cartItem);
-           cartItemPersistencePort.addCartItem(cartItem);
-           cart.setUpdatedAt(LocalDateTime.now());
-           cartPersistencePort.updateCart(cart);
-        }
+        checkQuantityPerCategory(cart.getItems(), cartItem);
+        cartItemPersistencePort.addCartItem(cartItem);
+        cart.setUpdatedAt(LocalDateTime.now());
+        cartPersistencePort.updateCart(cart);
     }
 
     private String getNextSupplyDate(Long productId) {
